@@ -1,4 +1,4 @@
-name: Publish blog
+name: Github Pages ci and cd
 
 on: [push]
 
