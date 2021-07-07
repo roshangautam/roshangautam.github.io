@@ -1,5 +1,5 @@
 ---
-title: "How to reset your mysql root password ?"
+title: "How to reset mysql root password ?"
 description: "Did you forget your mysql root password ? Do you have ssh access to your server ? If the answer to these questions is a YES then follow the instructions below to reset the root password for your mysql instance."
 coverImage: "/assets/images/posts/covers/mysql-logo.jpg"
 date: "2014-05-28"

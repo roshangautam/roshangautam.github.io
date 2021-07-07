@@ -1,5 +1,5 @@
 ---
-title: "Automating Video Downloads"
+title: "Automation using curl and bash"
 description: "Have you ever found yourself in a situation where you want to download a list of videos from an online course to watch them offline and there is no option to download all the files at once ?"
 coverImage: "/assets/images/posts/covers/automating-video-downloads.png"
 date: "2017-10-01"
