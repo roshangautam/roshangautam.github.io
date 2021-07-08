@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v1
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          working-directory: app
+          working-dir: app
           access-token: ${{ secrets.ACCESS_TOKEN }}
           deploy-branch: gh-pages
