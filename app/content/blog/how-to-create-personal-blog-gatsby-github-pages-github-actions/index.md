@@ -77,9 +77,14 @@ Push your changes to github
 git push --set-upstream origin master
 ```
 
-#### Publishing Setup
+#### Configure auto publishing
 
-The idea is to setup a workflow such that every new commit to the master branch would automatically publish it to github pages. To achieve this we will accompolish the following
+The idea is to setup a workflow such that every new commit to the master branch would automatically publish it to github pages. To achieve this we will complete the following one time setup steps
+
+##### Create an access token to use in the workflow as a secret variable
+
+- Use the instructions listed [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to create an access token with `repo` permissions
+- Use the instructions listed [here](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets) to create a secret called `ACCESS_TOKEN` to use in the workflow
 
 ##### Create a github action
 
@@ -93,12 +98,11 @@ The latter will automatically create a commit and push it to your default branch
 In this blog we will use the first option. Let's start by creating the directories and the file. Run the following commands from the root of the project
 
 ```sh
-mkdir github
-mkdir github\.workflows
-touch github\.workflows\gh-pages.yml
+mkdir .github && mkdir .github\workflows
+touch .github\workflows\gh-pages.yml
 ```
 
-##### Configure auto publish workflow using github actions
+##### Configure auto publishing content to github pages using using github actions
 
 Open `gh-pages.yml` in an editor and paste the following content
 
@@ -110,32 +114,33 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
     steps:
       - uses: actions/checkout@v1
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          working-dir: app
-          access-token: ${{ secrets.GITHUB_TOKEN }}
+          access-token: ${{ secrets.ACCESS_TOKEN }}
           deploy-branch: gh-pages
 ```
 
-This is telling github to use [Gatsby Github action](https://github.com/enriikke/gatsby-gh-pages-action) which takes care of building the static content and publishing it to `gh-pages` branch in the github repository
+This is telling github to use [Gatsby Github action](https://github.com/enriikke/gatsby-gh-pages-action) which takes care of building the static content and publishing it to `gh-pages` branch in the github repository. Learn more about other input options available in the action [here](https://github.com/enriikke/gatsby-gh-pages-action#knobs--handles)
 
-Create a commit
+Next create a commit
 
 ```sh
 git commit -m "Add publishing workflow for github pages"
 ```
 
-Push your changes to github
+And push your changes to github
 
 ```sh
 git push
 ```
 
-Navigate to the actions tab in github. You should observe a workflow action running and
+Now navigate to the actions tab in github. You should observe a workflow action running. Wait until it completes.
+
+As soon as the workflow completes successfully, your site should be live at http://username.github.io/repository.
+
+Awesome Job !!!
 
 #### Publishing Workflow
 
@@ -157,7 +162,7 @@ git commit -m "new article xyz"
 git push
 ```
 
-As soon as your commit goes through, your site should be live at http://username.github.io/repository. Voila !!!
+This should start the worflow we configured above and publish any new changes to github pages.
 
 #### Custom domains
 
