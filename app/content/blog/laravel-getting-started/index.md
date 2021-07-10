@@ -9,6 +9,7 @@ author:
 ogImage:
   url: "/assets/images/posts/covers/getting-started-with-laravel.png"
 ---
+
 <p style="text-align: center;">
   <image src="./getting-started-with-laravel.png"/>
 </p>
