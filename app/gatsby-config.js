@@ -3,7 +3,7 @@ module.exports = {
     title: `Reveries of a software engineer`,
     author: {
       name: `Roshan Gautam`,
-      summary: `Reveries of a software engineer`,
+      summary: ``,
     },
     description: ``,
     siteUrl: `https://roshangautam.com/`,

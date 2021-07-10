@@ -1,5 +1,5 @@
 ---
-title: "Personal Blog using Jigsaw and Github Pages"
+title: "How to create a personal blog using Jigsaw and Github Pages"
 description: "In this article we will explore a set of tools and services which will let you build a personal static site super fast and with almost zero cost. All you will need is 30 mins tops to get up and running excluding the time required to create your content."
 coverImage: "/assets/images/posts/covers/personal-websites-101.svg"
 date: "2019-01-13"
@@ -14,9 +14,7 @@ ogImage:
   <image src="./personal-websites-101.svg"/>
 </p>
 
-In this article we will explore a set of tools and services which will let you build a personal static site super fast
-and with almost zero cost. All you will need is 30 mins tops to get up and running excluding the time
-required to create your content.
+In this article we will explore a set of tools and services which will let you build a personal static site super fast and with almost zero cost. All you will need is 30 mins tops to get up and running excluding the time required to create your content.
 
 To build a personal static website you need
 
