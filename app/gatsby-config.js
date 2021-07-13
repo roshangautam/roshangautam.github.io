@@ -1,11 +1,16 @@
 module.exports = {
   siteMetadata: {
     title: `Reveries of a software engineer`,
+    titleTemplate: "%s | Roshan Gautam",
+    description:
+      "A personal blog by Roshan Gautam. Highly opinionated !!!",
+    url: "https://roshangautam.com", // No trailing slash allowed!
+    image: "/images/profile-pic.jpeg", // Path to your image you placed in the 'static' folder
+    twitterUsername: "@roshangautam",
     author: {
       name: `Roshan Gautam`,
       summary: ``,
     },
-    description: ``,
     siteUrl: `https://roshangautam.com/`,
     social: {
       twitter: `roshangautam`,

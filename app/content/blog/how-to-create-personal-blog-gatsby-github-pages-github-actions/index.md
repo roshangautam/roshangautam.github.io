@@ -14,27 +14,28 @@ ogImage:
   <image src="./personal-websites-101.svg"/>
 </p>
 
-In this article we will explore a set of tools and services which will let you build a personal static site super fast and with almost zero cost.
+In this article we will explore a set of tools and services which will let you build a personal blog and help setup an automated publishing pipeline. The idea is to write your content in markdown and publish it to github pages.
 
-To build a personal static website you need
+To build a personal blog we need to solve for the following
 
-- A server to host your static site,
-- A platform to create your static content.
+- A server to host your blog,
+- An easy way to write & publish your content.
 
 ## Getting Started
 
-### [Github](https://github.com)
+### [Github Pages](https://pages.github.com/)
 
-We will use github pages to host our static site. If you own a personal domain, you can configure github pages to use
-your custom domain at no cost. Isn't that wonderful.
+To solve our first problem, we will use github pages to host our personal blog. If you own a personal domain, you can configure github pages to use your custom domain at no cost. Isn't that wonderful.
 
 > If you don't have a github account, please visit [Github](https://github.com) and signup for a free account.
 
 ### [Gatsby](https://www.gatsbyjs.com/)
 
-Gatsby is a static site generator framework built using react and javascript. The best part is you can create your content using `markdown` and it supports `svg` out of the box.
+To solve our second problem, we will using Gatsby to write our content. Gatsby is a static site generator framework built using react/javascript and provides pre built blogging templates. The best part is you can create your content using [markdown](https://www.markdownguide.org/) and dont worry about any other technicalities. Gatsby will generate an html version of the content written in Markdown. Pick a template and off you go.
 
-> There are serveral other static site generators available online. You can use any of them. For this article we are using Gatsby.
+To publish the content written in markdown & Gatsby's blog template, we will use [github actions](https://github.com/features/actions). The minute you will add/update content and save it to your github repository an automated workflow will run and generate an html version of your markdown content and publish it to github pages.
+
+> There are several other static site generators available online. You can use any of them. For this article we are using Gatsby.
 
 Let's walk through the steps required to get you up and running.
 
@@ -42,8 +43,9 @@ Let's walk through the steps required to get you up and running.
 
 Install the following tools. Skip this step if you already have'em
 
-- [NodeJS](https://nodejs.org)
-- [Gatsby Cli](https://www.gatsbyjs.com/docs/tutorial/part-0/#gatsby-cli)
+- [VS Code](https://code.visualstudio.com/) - Editor of choice. Install markdown extensions to help with content writing
+- [NodeJS](https://nodejs.org) - To run your blog locally
+- [Gatsby Cli](https://www.gatsbyjs.com/docs/tutorial/part-0/#gatsby-cli) - To create and run your blog locally
 - [Hub](https://hub.github.com/) - Optional, used to maintain github account from a command line
 
 > macOS users can use [homebrew](https://brew.sh/) to install these tools. Likewise, you can use
@@ -51,15 +53,15 @@ Install the following tools. Skip this step if you already have'em
 
 #### Project Setup
 
-Let's create a new Gatsby site using the [blog starter template](https://www.gatsbyjs.com/starters/gatsbyjs/gatsby-starter-blog/). You can use any other starter template listed in [Gatsby's website](https://www.gatsbyjs.com/starters)
+Let's create a new Gatsby site using the [blog starter template](https://www.gatsbyjs.com/starters/gatsbyjs/gatsby-starter-blog/). You can use any other starter templates listed at [Gatsby's website](https://www.gatsbyjs.com/starters). Fire up a terminal of your choice and execute the following command. This is where the blog will be created in your machine, so pick a desired location.
 
 ```sh
 gatsby new my-awesome-blog https://github.com/gatsbyjs/gatsby-starter-blog
 ```
 
-Now you will open `gatsby-config.js` to update newly created site's basic settings. Locate `siteMedataData` and make the necessary changes by updating site title, author name etc. All the markdown content is located at `app/content/blog` where each article is in its own folder.
+Now you will open `gatsby-config.js` to update basic settings for the newly created blog. Locate `siteMedataData` and make the necessary changes by updating site title, author name etc. All the markdown content is located at `app/content/blog` where each article is in its own folder.
 
-Now let's create a new github repository called `my-awesome-blog`. You can either visit [Github](https://github.com) or use [hub](https://hub.github.com/) from your command line to create your new repository. Matter of fact this very site is hosted in github pages. You can find the repository [here](https://github.com/roshangautam/roshangautam). Once you are done creating the repository, fire up your favorite terminal and execute the following commands
+Now let's create a new github repository called `my-awesome-blog`. You can either visit [Github](https://github.com) or use [hub](https://hub.github.com/) from your command line to create your new repository. Once you are done creating the repository, fire up your favorite terminal and execute the following commands
 
 > Important : Replace username with your github username and repository with the name of newly created github repository.
 
@@ -81,7 +83,9 @@ git push --set-upstream origin master
 
 The idea is to setup a workflow such that every new commit to the master branch would automatically publish it to github pages. To achieve this we will complete the following one time setup steps
 
-##### Create an access token to use in the workflow as a secret variable
+##### Create an access token
+
+First, let's create an access token. We will use this token in the workflow as a secret variable called `ACCESS_TOKEN` in a few minutes
 
 - Use the instructions listed [here](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to create an access token with `repo` permissions
 - Use the instructions listed [here](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets) to create a secret called `ACCESS_TOKEN` to use in the workflow
@@ -102,7 +106,7 @@ mkdir .github && mkdir .github\workflows
 touch .github\workflows\gh-pages.yml
 ```
 
-##### Configure auto publishing content to github pages using using github actions
+##### Configure the workflow
 
 Open `gh-pages.yml` in an editor and paste the following content
 
@@ -144,7 +148,14 @@ Awesome Job !!!
 
 #### Publishing Workflow
 
-Now whenever you want to add a new article to your blog or update your sites content, you would only update markdown files locally, create a local commit and push it to the remote github repository. Pushing a commit to the master branch will trigger the workflow we created above and publish your site to github pages.
+Now whenever you want to add a new article to your blog or update your sites content, you would add/update markdown files to your new created github repository. You can do so in different ways.
+
+- Add/update markdown files from github using their web editor and save. This will automatically create a commit in the github repository.
+- OR, Add/update content locally, create a commit and push it to the remote github repository.
+
+Pushing a commit to the master branch will trigger the workflow we created above and publish your site to github pages.
+
+If you want to add/update content locally first:
 
 1. Make changes in `content/blog` folder
 
@@ -183,5 +194,6 @@ This all sounds good but what about custom domains. If you own a custom domain a
 
 > You just need one of the entries to work. Depdending on how long does your DNS provider takes time to propagate the
 > changes, your domain should start pointing at your github pages repo within a few minutes to a couple of hours.
+> This site is also hosted in github pages. You can find the repository [here](https://github.com/roshangautam/roshangautam).
 
 **_Thats it folks !!!_**
